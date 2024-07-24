@@ -5,6 +5,7 @@ public class Book {
   private String isbn;
   private String title;
   private int authorId;
+  private Author author;
   private String extract;
 
   public Book() {
@@ -15,6 +16,15 @@ public class Book {
     this.isbn = isbn;
     this.title = title;
     this.authorId = authorId;
+    this.extract = extract;
+  }
+
+  public Book(int id, String isbn, String title, int authorId, Author author, String extract) {
+    this.id = id;
+    this.isbn = isbn;
+    this.title = title;
+    this.authorId = authorId;
+    this.author = author;
     this.extract = extract;
   }
 
@@ -56,5 +66,13 @@ public class Book {
 
   public void setExtract(String extract) {
     this.extract = extract;
+  }
+
+  public Author getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(Author author) {
+    this.author = author;
   }
 }

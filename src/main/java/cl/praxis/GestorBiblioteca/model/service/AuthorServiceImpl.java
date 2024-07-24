@@ -35,17 +35,25 @@ public class AuthorServiceImpl implements AuthorService {
 
   @Override
   public Author findOne(int id) {
-    return null;
+    return authorList.stream()
+            .filter(author -> author.getId() == id)
+            .findFirst()
+            .orElse(null);
   }
 
   @Override
-  public boolean create(Author b) {
-    return false;
+  public boolean create(Author a) {
+    authorList.add(a);
+    return true;
   }
 
   @Override
-  public boolean update(Author b) {
-    return false;
+  public boolean update(Author a) {
+    Author author = findOne(a.getId());
+    author.setName(a.getName());
+    author.setLastname(a.getLastname());
+    author.setYearOfBirth(a.getYearOfBirth());
+    return true;
   }
 
   @Override

@@ -8,20 +8,20 @@
 <body>
 <div class="container">
     <div th:replace="nav :: nav"></div>
-    <h1>Edición de Libro</h1>
-    <form class="form" method="post" th:action="@{/books}" th:object="${book}">
-        <input type="hidden" id="id" name="id" th:value="${book.getId()}">
+    <h1>Crear Libro</h1>
+    <form class="form" method="post" th:action="@{/books/new}" th:object="${book}">
+        <input type="hidden" id="id" name="id" value="0">
         <div class="mb-3">
             <label for="title" class="form-label">Titulo</label>
-            <input id="title" name="title" class="form-control" th:value="${book.getTitle()}">
+            <input id="title" name="title" class="form-control">
         </div>
         <div class="mb-3">
             <label for="isbn" class="form-label">ISBN</label>
-            <input id="isbn" name="isbn" class="form-control" th:value="${book.getIsbn()}">
+            <input id="isbn" name="isbn" class="form-control">
         </div>
         <div class="mb-3">
             <label for="extract" class="form-label">Abstracto:</label>
-            <input id="extract" name="extract" class="form-control" th:value="${book.getExtract()}">
+            <input id="extract" name="extract" class="form-control">
         </div>
         <div class="row">
             <div class="col-3">

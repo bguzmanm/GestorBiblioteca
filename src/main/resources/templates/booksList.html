@@ -7,25 +7,37 @@
 </head>
 <body>
 <div class="container">
+    <div th:replace="nav :: nav"></div>
     <h1>Listado de Libros</h1>
     <table class="table">
         <thead class="table-dark">
             <th>#</th>
             <th>ISBN</th>
             <th>Titulo</th>
+            <th>Autor</th>
             <th>Abstracto</th>
+            <th>Borrar</th>
         </thead>
         <tbody>
             <tr th:each="book : ${books}">
-                <th><a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getId()}"></a></th>
+                <th th:text="${book.getId()}"></th>
                 <td th:text="${book.getIsbn()}"></td>
                 <td th:text="${book.getTitle()}"></td>
+                <td><a th:href="@{/authors/{id}(id=${book.getAuthor.getId()})}"
+                       th:text="${book.getAuthor.getName() + ' ' + book.getAuthor.getLastname()}"></a></td>
                 <td th:text="${book.getExtract()}"></td>
+                <td>
+                    <a class="btn btn-primary" th:href="@{/books/{id}(id=${book.getId()})}">Editar</a>
+                    <a class="btn btn-danger" th:href="@{/books/del/{id}(id=${book.getId()})}">Borrar</a>
+                </td>
             </tr>
         </tbody>
     </table>
-
-    <p><a href="/" class="btn btn-primary">Volver a Home</a></p>
+    <div class="row">
+        <div class="col-4">
+            <a th:href="@{/books/new}" class="btn btn-primary">Nuevo Libro</a>
+        </div>
+    </div>
 
 
 </div>

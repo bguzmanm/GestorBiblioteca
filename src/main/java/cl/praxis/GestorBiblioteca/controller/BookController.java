@@ -27,8 +27,6 @@ public class BookController {
   public String findAll(Model model){
     logger.info("Ejecutando findAll() de BookController");
     model.addAttribute("books", service.findAll());
-
-
     return "booksList";
   }
 
@@ -40,17 +38,44 @@ public class BookController {
   }
 
   @PostMapping
-  public String update(@ModelAttribute Book book, Model model){
-    return "booksList";
+  public String update(@ModelAttribute Book book){
+    boolean result = service.update(book);
+
+    if (result){
+      logger.info("Libro actualizado correctamente");
+    } else {
+      logger.error("Error al actualizar libro");
+    }
+
+    return "redirect:/books";
+  }
+  @GetMapping("/new")
+  public ModelAndView create(){
+    return new ModelAndView("bookNew");
   }
 
-  @GetMapping("/byCode")
-  public ModelAndView findByCode(){
-    ModelAndView mv = new ModelAndView("booksList");
-    mv.addObject("books", service.findAll());
+  @PostMapping("/new")
+  public String save(@ModelAttribute Book book){
+    boolean result = service.create(book);
 
-    return mv;
+    if (result){
+      logger.info("Libro creado correctamente");
+    } else {
+      logger.error("Error al crear libro");
+    }
+    return "redirect:/books";
   }
 
+  @GetMapping("/del/{id}")
+  public String delete(@PathVariable("id") int id){
+    boolean result = service.delete(id);
+
+    if (result){
+      logger.info("Libro eliminado correctamente");
+    } else {
+      logger.error("Error al eliminar el libro");
+    }
+    return "redirect:/books";
+  }
 
 }

@@ -15,12 +15,20 @@ public class BookServiceImpl implements BookService {
   private List<Book> bookList;
   private static final Logger logger = LoggerFactory.getLogger(GestorBibliotecaApplication.class);
 
+  private AuthorService authorService = new AuthorServiceImpl();
+
   public BookServiceImpl() {
+
     bookList = new ArrayList<>();
-    bookList.add(new Book(1, "123", "Canción de Hielo y Fuego", 1, "El invierno se acerca"));
-    bookList.add(new Book(2, "234", "El Resplandor", 2, "Las paredes sangran"));
-    bookList.add(new Book(3, "345", "Inferno", 3, "Es como el infierno pero sin i"));
-    bookList.add(new Book(4, "456", "Sapo y Sepo", 4, "Amigos inseparables"));
+
+    bookList.add(new Book(1, "123", "Canción de Hielo y Fuego",
+            1, authorService.findOne(1), "El invierno se acerca"));
+    bookList.add(new Book(2, "234", "El Resplandor",
+            2,  authorService.findOne(2), "Las paredes sangran"));
+    bookList.add(new Book(3, "345", "Inferno",
+            3,  authorService.findOne(3), "Es como el infierno pero sin i"));
+    bookList.add(new Book(4, "456", "Sapo y Sepo",
+            4,  authorService.findOne(4), "Amigos inseparables"));
   }
 
   public BookServiceImpl(List<Book> bookList) {
@@ -45,7 +53,8 @@ public class BookServiceImpl implements BookService {
 
   @Override
   public boolean create(Book b) {
-    return false;
+    bookList.add(b);
+    return true;
   }
 
   @Override
@@ -61,6 +70,13 @@ public class BookServiceImpl implements BookService {
 
   @Override
   public boolean delete(int id) {
+
+    Book b = findOne(id);
+    if (b != null){
+      bookList.remove(b);
+      return true;
+    }
+
     return false;
   }
 }
